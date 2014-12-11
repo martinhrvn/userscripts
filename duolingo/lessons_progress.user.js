@@ -2,7 +2,7 @@
 // @name        Lessons progress
 // @namespace   http://rubycoder.org
 // @include     https://www.duolingo.com/*
-// @version     1.1
+// @version     1.2
 // @grant GM_getValue
 // ==/UserScript==
 
@@ -35,8 +35,9 @@ function f($) {
               doneSkills += 1;
             }
           }
-  
-          var stats = $('<ul class="sidebar-stats lesson-progress"><li><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li><span class="icon icon-words-small">a</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Lessons</li></ul>');
+          var lessonPercent = Math.round(doneActivities / totalActivities * 100);
+          var skillPercent = Math.round(doneSkills / totalSkills * 100);
+          var stats = $('<ul class="sidebar-stats lesson-progress"><li title="'+ skillPercent +'%"><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li title="'+ lessonPercent +'%"><span class="icon icon-words-small">a</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Lessons</li></ul>');
           if($('#app').hasClass('home') && !$('.lesson-progress').length) {  
             $('.strengthen-skills-container').before(stats);
           }
