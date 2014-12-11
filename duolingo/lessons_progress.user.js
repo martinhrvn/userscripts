@@ -2,7 +2,7 @@
 // @name        Duolingo Course Progress
 // @namespace   https://github.com/kane77/userscripts
 // @include     https://www.duolingo.com/*
-// @version     1.4
+// @version     1.5
 // @grant GM_getValue
 // ==/UserScript==
 function inject(f) { //Inject the script into the document
