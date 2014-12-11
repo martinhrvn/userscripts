@@ -2,7 +2,7 @@
 // @name        Duolingo Course Progress
 // @namespace   https://github.com/kane77/userscripts
 // @include     https://www.duolingo.com/*
-// @version     1.3
+// @version     1.4
 // @grant GM_getValue
 // ==/UserScript==
 
@@ -37,7 +37,7 @@ function f($) {
           }
           var lessonPercent = Math.round(doneActivities / totalActivities * 100);
           var skillPercent = Math.round(doneSkills / totalSkills * 100);
-          var stats = $('<ul class="sidebar-stats lesson-progress"><li title="'+ skillPercent +'%"><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li title="'+ lessonPercent +'%"><span class="icon icon-words-small">a</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Lessons</li></ul>');
+          var stats = $('<ul class="sidebar-stats lesson-progress"><li title="'+ skillPercent +'%"><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li title="'+ lessonPercent +'%"><span class="icon icon-words-small">L</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Lessons</li></ul>');
           if($('#app').hasClass('home') && !$('.lesson-progress').length) {  
             $('.strengthen-skills-container').before(stats);
           }
