@@ -36,8 +36,8 @@ function f($) {
             }
           }
   
-          var stats = $('<ul class="sidebar-stats"><li><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li><span class="icon icon-words-small">a</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Lessons</li></ul>');
-          if($('#app').hasClass('home')) {  
+          var stats = $('<ul class="sidebar-stats lesson-progress"><li><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li><span class="icon icon-words-small">a</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Lessons</li></ul>');
+          if($('#app').hasClass('home') && !$('.lesson-progress').length) {  
             $('.strengthen-skills-container').before(stats);
           }
 
@@ -48,6 +48,11 @@ function f($) {
   $(document).ready(function() {
 		duolingoStats();
 	}); 
+
+    $(document).ajaxComplete(function() {
+		duolingoStats();
+	});
 	
+
 }
 
