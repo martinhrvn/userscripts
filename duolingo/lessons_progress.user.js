@@ -2,7 +2,7 @@
 // @name        Lessons progress
 // @namespace   http://rubycoder.org
 // @include     https://www.duolingo.com/*
-// @version     1
+// @version     1.1
 // @grant GM_getValue
 // ==/UserScript==
 
@@ -36,7 +36,7 @@ function f($) {
             }
           }
   
-          var stats = $('<ul class="sidebar-stats"><li><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li><span class="icon icon-words-small">a</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Activities</li></ul>');
+          var stats = $('<ul class="sidebar-stats"><li><span class="icon icon-words-small">S</span><strong><span id="skill">'+doneSkills+'/'+totalSkills+'</span></strong> Skills</li><li><span class="icon icon-words-small">a</span><strong><span id="skill">'+doneActivities+'/'+totalActivities+'</span></strong> Lessons</li></ul>');
           if($('#app').hasClass('home')) {  
             $('.strengthen-skills-container').before(stats);
           }
