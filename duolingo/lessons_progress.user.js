@@ -2,6 +2,7 @@
 // @name        Duolingo Course Progress
 // @namespace   https://github.com/kane77/userscripts
 // @include     https://www.duolingo.com/*
+// @author      Martin Harvan
 // @version     1.6.1
 // @grant GM_getValue
 // ==/UserScript==
