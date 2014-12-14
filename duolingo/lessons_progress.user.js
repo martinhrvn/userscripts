@@ -3,7 +3,7 @@
 // @namespace   https://github.com/kane77/userscripts
 // @include     https://www.duolingo.com/*
 // @author      Martin Harvan
-// @version     1.6.1
+// @version     2.0
 // @grant GM_getValue
 // ==/UserScript==
 function inject(f) { //Inject the script into the document
@@ -18,7 +18,7 @@ inject(f);
 function f($) {
     function duolingoStats() {
         try {
-            var langData = window.duo.user.attributes.language_data[window.duo.user.attributes.learning_language];
+            langData = window.duo.user.attributes.language_data[window.duo.user.attributes.learning_language];
             var totalSkills = langData.skills.models.length;
             var doneSkills = 0;
             var totalActivities = 0;
@@ -42,6 +42,33 @@ function f($) {
                     }
                 }
             }
+             
+            var firstTracked = localStorage['dcp_last_index'];
+            if(!firstTracked) {
+                localStorage['dcp_date_0'] = new Date();
+                localStorage['dcp_skills_0'] = doneSkills;
+                localStorage['dcp_lessons_0'] = doneActivities;
+                localStorage['dcp_last_index'] = 0;
+            } else {
+                var lastIndex = localStorage['dcp_last_index'];
+                
+                var dS = parseInt(localStorage['dcp_skills_'+lastIndex]);
+                var dL = parseInt(localStorage['dcp_lessons_'+lastIndex]);
+                
+                if(doneSkills > dS || doneActivities > dL) {
+                    var i = parseInt(lastIndex) + 1;
+                    localStorage['dcp_last_index'] = i;
+                    localStorage['dcp_skills_'+i] = doneSkills;
+                    localStorage['dcp_lessons_'+i] = doneActivities;
+                    localStorage['dcp_date_'+i] = new Date();
+                }
+                
+                
+            }
+            
+            
+            
+                
             var lessonPercent = Math.round(doneActivities / totalActivities * 100);
             var skillPercent = Math.round(doneSkills / totalSkills * 100);
             
@@ -51,6 +78,23 @@ function f($) {
             var stats = $('<ul class="sidebar-stats lesson-progress"></ul>');
             skillElem.appendTo(stats);
             lessonElem.appendTo(stats);
+            
+            var lessonDiff = (doneActivities - parseInt(localStorage['dcp_lessons_0']));
+                if(lessonDiff > 0){
+                    var timeDiff = (new Date() - new Date(localStorage['dcp_date_0']));
+                    var timePerLesson = timeDiff / lessonDiff;
+
+                    var estTime = (totalActivities - doneActivities) * timePerLesson;
+
+                    var finishDate = new Date(new Date().getTime() + estTime).toLocaleDateString();
+                    if(!$('.estimate_completion').length) {
+                        var estText = $('<span id="estimate"><strong>'+finishDate+'</strong></span>');
+                        var est = $('<li style="text-align: left; display: block; margin-top: 2px;" class="estimate_completion"><span class="icon icon-words-small estimate-icon">E</span></li>');
+                        est.append(estText);
+                        est.appendTo(stats);
+                    }
+                }
+            
             if ($('#app').hasClass('home') && !$('.lesson-progress').length) {
                 $('.strengthen-skills-container').before(stats);
             }
@@ -89,4 +133,5 @@ function f($) {
         duolingoStats();
     });
 }
+
 
