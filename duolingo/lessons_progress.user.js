@@ -3,7 +3,7 @@
 // @namespace   https://github.com/kane77/userscripts
 // @include     https://www.duolingo.com/*
 // @author      Martin Harvan
-// @version     2.2
+// @version     2.3
 // @grant GM_getValue
 // ==/UserScript==
 function inject(f) { //Inject the script into the document
@@ -60,7 +60,7 @@ function f($) {
         var days = estTime / (1000 * 3600 * 24);
         if (!$('#estimate_stats').length) {
 
-          var estText = createElement(finishDate, days + " remaining", "Estimate", "E" );
+          var estText = createElem(finishDate, days + " remaining", "Estimate", "E" );
           estText.appendTo(stats);
         }
       }
