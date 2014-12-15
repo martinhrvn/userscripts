@@ -3,7 +3,7 @@
 // @namespace   https://github.com/kane77/userscripts
 // @include     https://www.duolingo.com/*
 // @author      Martin Harvan
-// @version     2.1
+// @version     2.2
 // @grant GM_getValue
 // ==/UserScript==
 function inject(f) { //Inject the script into the document
