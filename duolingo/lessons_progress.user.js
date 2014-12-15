@@ -46,8 +46,8 @@ function f($) {
       storeDCPItems(new Date(), doneSkills, doneActivities, language);
       var lessonPercent = Math.round(doneActivities / totalActivities * 100);
       var skillPercent = Math.round(doneSkills / totalSkills * 100);
-      var skillElem = createElem(doneSkills, totalSkills, skillPercent, 'Skills', 'S');
-      var lessonElem = createElem(doneActivities, totalActivities, lessonPercent, 'Lessons', 'L');
+      var skillElem = createElem(doneSkills + "/" + totalSkills, skillPercent + "%", 'Skills', 'S');
+      var lessonElem = createElem(doneActivities + "/" + totalActivities, lessonPercent + "%", 'Lessons', 'L');
       var stats = $('<ul class="sidebar-stats lesson-progress"></ul>');
       skillElem.appendTo(stats);
       lessonElem.appendTo(stats);
@@ -57,11 +57,11 @@ function f($) {
         var timePerLesson = timeDiff / lessonDiff;
         var estTime = (totalActivities - doneActivities) * timePerLesson;
         var finishDate = new Date(new Date().getTime() + estTime).toLocaleDateString();
-        if (!$('.estimate_completion').length) {
-          var estText = $('<span id="estimate"><strong>' + finishDate + '</strong></span>');
-          var est = $('<li style="text-align: left; display: block; margin-top: 2px;" class="estimate_completion"><span class="icon icon-words-small estimate-icon">E</span></li>');
-          est.append(estText);
-          est.appendTo(stats);
+        var days = estTime / (1000 * 3600 * 24);
+        if (!$('#estimate_stats').length) {
+
+          var estText = createElement(finishDate, days + " remaining", "Estimate", "E" );
+          estText.appendTo(stats);
         }
       }
       if ($('#app').hasClass('home') && !$('.lesson-progress').length) {
@@ -71,11 +71,11 @@ function f($) {
       console.log(ex);
     }
   }
-  function createElem(doneCount, totalCount, percent, name, icon) {
-    var elemText = $('<span id="' + name + '_text"><strong>' + doneCount + '/' + totalCount + '</strong> ' + name + '</span>');
-    var percentage = $('<span id="' + name + '_percent"><strong>' + percent + '%</strong></span>');
+  function createElem(normalText, atlText, name, icon) {
+    var elemText = $('<span id="' + name + '_text"><strong>' + normalText + '</strong> ' + name + '</span>');
+    var percentage = $('<span id="' + name + '_percent"><strong>' + altText + '</strong></span>');
     percentage.hide();
-    var elem = $('<li style="text-align: left; display: block; margin-top: 2px;" id="' + name + '_stats" title="' + percent + '%"><span class="icon icon-words-small ' + name + '-icon">' + icon + '</span></li>');
+    var elem = $('<li style="text-align: left; display: block; margin-top: 2px;" id="' + name + '_stats" title="' + altText + '"><span class="icon icon-words-small ' + name + '-icon">' + icon + '</span></li>');
     elem.append(elemText);
     elem.append(percentage);
     $('.' + name + '-icon').mouseover(function () {
@@ -120,4 +120,5 @@ function f($) {
     localStorage['dcp_' + language + '_last_index'] = lastIndex;
   }
 }
+
 
