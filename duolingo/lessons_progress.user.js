@@ -71,7 +71,7 @@ function f($) {
       console.log(ex);
     }
   }
-  function createElem(normalText, atlText, name, icon) {
+  function createElem(normalText, altText, name, icon) {
     var elemText = $('<span id="' + name + '_text"><strong>' + normalText + '</strong> ' + name + '</span>');
     var percentage = $('<span id="' + name + '_percent"><strong>' + altText + '</strong></span>');
     percentage.hide();
