@@ -60,7 +60,7 @@ function f($) {
         var days = Math.round(estTime / (1000 * 3600 * 24));
         if (!$('#estimate_stats').length) {
 
-          var estText = createElem(finishDate, days + " remaining", "Estimate", "E" );
+          var estText = createElem(finishDate, days + " days remaining", "Estimate", "E" );
           estText.appendTo(stats);
         }
       }
