@@ -57,7 +57,7 @@ function f($) {
         var timePerLesson = timeDiff / lessonDiff;
         var estTime = (totalActivities - doneActivities) * timePerLesson;
         var finishDate = new Date(new Date().getTime() + estTime).toLocaleDateString();
-        var days = estTime / (1000 * 3600 * 24);
+        var days = Math.round(estTime / (1000 * 3600 * 24));
         if (!$('#estimate_stats').length) {
 
           var estText = createElem(finishDate, days + " remaining", "Estimate", "E" );
