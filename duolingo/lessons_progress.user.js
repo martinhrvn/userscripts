@@ -85,7 +85,7 @@ function f($) {
       var lessonPerDay = createElem(lessonsEachDay, goalFinishDateLocale + " Goal Finish Date", 'Lessons-Per-Day', 'D');
       lessonPerDay.appendTo(stats);
       
-      //End of created by me
+     
   
       if ($('#app').hasClass('home') && !$('.lesson-progress').length) {
         $('.strengthen-skills-container').before(stats);
