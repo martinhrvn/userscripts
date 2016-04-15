@@ -64,19 +64,18 @@ function f($) {
           estText.appendTo(stats);
         }
       }
-     
     function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) === 0) return c.substring(name.length,c.length);
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1);
+			if (c.indexOf(name) === 0) return c.substring(name.length,c.length);
+		}
+		return "";
     }
-    return "";
-    }  
-    
 
+        
       var activitiesLeft = totalActivities - doneActivities;
       var goalFinishDate = new Date(getCookie("finishDateGoal")).getTime();
       var goalFinishDateLocale = new Date(goalFinishDate).toLocaleDateString();
@@ -85,7 +84,6 @@ function f($) {
       var lessonPerDay = createElem(lessonsEachDay, goalFinishDateLocale + " Goal Finish Date", 'Lessons-Per-Day', 'D');
       lessonPerDay.appendTo(stats);
       
-     
   
       if ($('#app').hasClass('home') && !$('.lesson-progress').length) {
         $('.strengthen-skills-container').before(stats);
@@ -94,7 +92,6 @@ function f($) {
       console.log(ex);
     }
   }
-   
     var mouseOverCounter = 0;
   function createElem(normalText, altText, name, icon) {
     var elemText = $('<span id="' + name + '_text"><strong>' + normalText + '</strong> ' + name + '</span>');
@@ -106,19 +103,16 @@ function f($) {
     $('.' + name + '-icon').mouseover(function () {
       $('#' + name + '_text').hide();
       $('#' + name + '_percent').css('display', 'inline-block');
-        
         if (name == "Lessons-Per-Day" && mouseOverCounter===0){
             mouseOverCounter++;
             clickWaiter();
         }
-       
     }).mouseout(function () {
       $('#' + name + '_percent').hide();
       $('#' + name + '_text').show();
     });
     return elem;
   }
-    
     function clickWaiter(){
         
     $('.Lessons-Per-Day-icon').click(function () {
@@ -128,12 +122,13 @@ function f($) {
             d.setTime(d.getTime() + (36500*24*60*60*1000));
             var expires = "expires="+d.toUTCString();
             document.cookie = cname + "=" + cvalue + "; " + expires;
-            location.reload();
+			setTimeout(function(){
+				location.reload();
+			}, 250);
         }
         goalCookie("finishDateGoal", goalDateUser);
     });
     }
-    
   $(document).ready(function () {
     duolingoStats();
   });
