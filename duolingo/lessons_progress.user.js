@@ -48,7 +48,7 @@ function f($) {
       var skillPercent = Math.round(doneSkills / totalSkills * 100);
       var skillElem = createElem(doneSkills + "/" + totalSkills, skillPercent + "%", 'Skills', 'S');
       var lessonElem = createElem(doneActivities + "/" + totalActivities, lessonPercent + "%", 'Lessons', 'L');
-      var stats = $('<ul class="sidebar-stats lesson-progress"></ul>');
+      var stats = $('<div class="sidebar-stats lesson-progress strengthen-skills-container "></div>');
       skillElem.appendTo(stats);
       lessonElem.appendTo(stats);
       var lessonDiff = (doneActivities - parseInt(getLSItem('lessons', language, 1)));
@@ -65,7 +65,7 @@ function f($) {
         }
       }
       if ($('#app').hasClass('home') && !$('.lesson-progress').length) {
-        $('.strengthen-skills-container').before(stats);
+        $('#weekly-progress').after(stats);
       }
     } catch (ex) {
       console.log(ex);
