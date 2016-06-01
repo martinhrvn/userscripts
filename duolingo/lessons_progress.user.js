@@ -16,7 +16,7 @@ function inject(f) { //Inject the script into the document
 }
 inject(f);
 function f($) {
-  courseProgress = {"last_index":1};
+  courseProgress = {};
   function duolingoStats() {
     try {
       var language = window.duo.user.attributes.learning_language;
@@ -101,7 +101,7 @@ function f($) {
   function getLSItem(name, language, id) {
     // console.log("GET "+ name + " " + language);
     if (!(name in courseProgress)) {
-      return 0;
+      return null;
     }
     if (typeof id !== 'undefined') {
       return courseProgress[name][id];
@@ -118,22 +118,23 @@ function f($) {
   }
   function roundDate(date)
   {
-    date.setHours(0);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    date.setMilliseconds(0);
-    return date;
+    ndate = new Date(date)
+    ndate.setHours(0);
+    ndate.setMinutes(0);
+    ndate.setSeconds(0);
+    ndate.setMilliseconds(0);
+    return ndate;
   }
   function storeDCPItems(date, skills, lessons, language) {
     var lastIndex = getLSItem('last_index', language);
-    if (!lastIndex) {
-      lastIndex = 0;
+    if (lastIndex == null) {
+      lastIndex = 0;  // New course
     } else {
       if (lessons <= parseInt(getLSItem('lessons', language, lastIndex)) &&
       skills <= parseInt(getLSItem('skills', language, lastIndex))) {
         return;
       }
-      if (roundDate(date) != roundDate(getLSItem('date', language, lastIndex))) {
+      if (roundDate(date) != roundDate(new Date(getLSItem('date', language, lastIndex)))) {
         lastIndex++;
       }
     }
@@ -154,8 +155,6 @@ function f($) {
     _progress = JSON.parse(_progressJSON);
     if (null != _progress) {
       courseProgress = _progress;
-    } else {
-      courseProgress['last_index'] = 0;
     }
     // console.log("READ "+ JSON.stringify(courseProgress));
   }
